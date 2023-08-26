@@ -41,6 +41,8 @@ USE POSTMAN TO SEND API REQUESTS
 
 /////////////////////////////////////////////////////////////////
 
+*** use this as bearer token = "70712c7b-43e7-11ee-bea5-9829a659bba7" in headers ***
+
 1) Insert order-service api
 
 POST : http://localhost:3001/insert/order-service

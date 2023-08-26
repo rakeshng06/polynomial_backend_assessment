@@ -15,7 +15,17 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+let token = "Bearer 70712c7b-43e7-11ee-bea5-9829a659bba7"
+
 app.post("/insert/order-service", (req, res) => {
+  console.log("heasers",req.headers.authorization)
+  if(token !== req.headers.authorization){
+    res.send({
+      "success":false,
+      "message":"Token doesn't match"
+    })
+    return;
+  }
   let myobj = {};
   myobj.identifier = uuid();
   myobj.symbol = req.body.symbol;
@@ -51,6 +61,13 @@ app.post("/insert/order-service", (req, res) => {
 });
 
 app.post("/update/order-service", (req, res) => {
+  if(token !== req.headers.authorization){
+    res.send({
+      "success":false,
+      "message":"Token doesn't match"
+    })
+    return;
+  }
   let identifier = req.body.identifier;
   let new_quantity = req.body.new_quantity;
   const sql1 =
@@ -99,6 +116,13 @@ app.post("/update/order-service", (req, res) => {
 });
 
 app.post("/delete/order-service", (req, res) => {
+  if(token !== req.headers.authorization){
+    res.send({
+      "success":false,
+      "message":"Token doesn't match"
+    })
+    return;
+  }
   let identifier = req.body.identifier;
   let status = "cancel";
   const sql1 =
@@ -147,6 +171,13 @@ app.post("/delete/order-service", (req, res) => {
 });
 
 app.post("/order-service/status", (req, res) => {
+  if(token !== req.headers.authorization){
+    res.send({
+      "success":false,
+      "message":"Token doesn't match"
+    })
+    return;
+  }
   let identifier = req.body.identifier;
   const sql1 = "select * from orders where identifier=?";
   db.query(sql1, [identifier], (err1, res1) => {
